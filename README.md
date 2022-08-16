@@ -20,7 +20,13 @@ This project holds a Demo in AWS using Glue and Redshift and some other things:
 
 ## Demo
 
-* Initialize the infrastructure
+* **Requirements**:
+  * add a credentials.tfvars with the following values in the desired terraform folder or complete trough input:
+    * secret_key = "XXX"
+    * access_key = "YYY"
+
+
+* Plan the infrastructure and then apply it
    ```bash
-   make infrastructure
+   make infrastructure_aws_bigdata_demo
    ```
