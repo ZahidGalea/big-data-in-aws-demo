@@ -21,11 +21,11 @@ This project holds a Demo in AWS using Glue and Redshift and some other things:
 ## **Requirements**
 
 * Add .env file with the following values in the root folder:
-  * AWS_SECRET_KEY="XXX"
-  * AWS_ACCESS_KEY = "YYY"
+  * AWS_SECRET_ACCESS_KEY="XXX"
+  * AWS_ACCESS_KEY_ID = "YYY"
 * Docker
-  * Minikube
-  * [Task](https://taskfile.dev/#/installation)
+* Minikube
+* [Task](https://taskfile.dev/#/installation)
 
 ## Demo
 
@@ -40,6 +40,5 @@ This project holds a Demo in AWS using Glue and Redshift and some other things:
 * Deploy the application
   
    ```bash
-   task application:generate-app-minikube
-   
+   task application:generate-app
    ```
