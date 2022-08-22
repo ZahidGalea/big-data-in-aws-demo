@@ -40,5 +40,6 @@ This project holds a Demo in AWS using Glue and Redshift and some other things:
 * Deploy the application
   
    ```bash
+   task application:init-minikube
    task application:generate-app
    ```

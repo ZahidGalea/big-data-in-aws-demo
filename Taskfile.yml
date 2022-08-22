@@ -49,7 +49,7 @@ tasks:
       - minikube addons enable registry
   
   application:generate-app:
-    deps: [ tests, application:cdc-app-as-submodule-update, application:init-minikube ]
+    deps: [ tests, application:cdc-app-as-submodule-update ]
     dir: application-folder
     desc: Creates the application in minikube
     vars:
