@@ -18,15 +18,28 @@ This project holds a Demo in AWS using Glue and Redshift and some other things:
 
 ![asd](https://d2908q01vomqb2.cloudfront.net/b6692ea5df920cad691c20319a6fffd7a4a766b8/2021/02/19/data-analytics-update-2-final.jpg)
 
+## **Requirements**
+
+* Add .env file with the following values in the root folder:
+  * AWS_SECRET_KEY="XXX"
+  * AWS_ACCESS_KEY = "YYY"
+* Docker
+  * Minikube
+  * [Task](https://taskfile.dev/#/installation)
+
 ## Demo
-
-* **Requirements**:
-  * add a credentials.tfvars with the following values in the desired terraform folder or complete trough input:
-    * secret_key = "XXX"
-    * access_key = "YYY"
-
 
 * Plan the infrastructure and then apply it
    ```bash
-   make infrastructure_aws_bigdata_demo
+   task infrastructure:plan
+   ```
+   ```bash
+   task infrastructure:apply
+   ```
+
+* Deploy the application
+  
+   ```bash
+   task application:generate-app-minikube
+   
    ```
