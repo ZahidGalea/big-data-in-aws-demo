@@ -1,0 +1,32 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kafka-to-kineses
+  namespace: debezium-example
+  labels:
+    app: kafka-to-kineses
+    version: "1.0.0"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kafka-to-kineses
+      version: "1.0.0"
+  template:
+    metadata:
+      name: kafka-to-kineses
+      labels:
+        app: kafka-to-kineses
+        version: "1.0.0"
+    spec:
+      restartPolicy: Always
+      containers:
+        - name: kafka-to-kineses
+          image: kafka-to-kinesis-app:latest
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: KAFKA_BOOTSTRAP_IP_PORT
+              value: 'debezium-cluster-kafka-bootstrap:9092'
+            - name: TOPIC_NAME_TO_LOAD
+              value: 'postgres.public.envio'

@@ -37,9 +37,15 @@ This project holds a Demo in AWS using Glue and Redshift and some other things:
    task infrastructure:apply
    ```
 
-* Deploy the application
+* Deploy the streaming kafka application following the README.md instructions in this [repository](https://github.com/ZahidGalea/cdc-with-debezium-in-minikube)
+or execute the following line with the resume of it.
   
    ```bash
-   task application:init-minikube
    task application:generate-app
+   ```
+  
+* Lets take those records to AWS Kinesis...
+
+   ```bash
+   task application:kafka-to-kinesis
    ```
