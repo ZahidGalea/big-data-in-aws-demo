@@ -37,18 +37,20 @@ tasks:
   application:cdc-app-as-submodule-update:
     desc: Downloads the repository
     cmds:
+      #- git submodule add "https://github.com/ZahidGalea/cdc-with-debezium-in-minikube" 01_sources/application-demo
       - git submodule update
   
   application:generate-app:
     deps: [ tests, application:cdc-app-as-submodule-update ]
     desc: Creates the application in minikube
+    dir: 01_sources
     cmds:
-      - /bin/bash ./init_kafka_app.sh
+      - /bin/bash init_application_demo.sh
   
   application:kafka-to-kinesis:
     deps: [ tests ]
     desc: Creates the application in minikube
     cmds:
-      - eval $(minikube docker-env); docker build -t=kafka-to-kinesis-app:latest kafka-consumer/
-      - kubectl apply -f kafka-consumer/kafka-to-kinesis.yml
+      - eval $(minikube docker-env); docker build -t=kafka-to-kinesis-app:latest 01_sources/kafka-to-kinesis/
+      - kubectl apply -f 01_sources/kafka-to-kinesis/kafka-to-kinesis.yml
 

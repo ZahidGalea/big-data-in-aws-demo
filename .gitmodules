@@ -1,3 +1,3 @@
-[submodule "application-folder"]
-	path = application-folder
+[submodule "01_sources/application-demo"]
+	path = 01_sources/application-demo
 	url = https://github.com/ZahidGalea/cdc-with-debezium-in-minikube
