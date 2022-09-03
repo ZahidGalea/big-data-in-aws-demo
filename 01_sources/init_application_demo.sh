@@ -8,7 +8,6 @@ minikube start --memory 11000 --cpus 6 --insecure-registry "10.0.0.0/24"
 minikube addons enable registry
 
 # Saves this variable to save the debezium connector image
-MNK_REGISTRY_IP=$(kubectl -n kube-system get svc registry -o jsonpath='{.spec.clusterIP}')
 kubectl create ns debezium-example
 kubectl config set-context --current --namespace=debezium-example
 
@@ -36,6 +35,7 @@ echo "Sleeping for 2 minutes"
 sleep 120
 
 # Creates the kafka connector
-envsubst <kafka/kafka-connect.yml | kubectl apply -n debezium-example -f -
+export MNK_REGISTRY_IP=$(kubectl -n kube-system get svc registry -o jsonpath='{.spec.clusterIP}'); envsubst <kafka/kafka-connect.yml | kubectl apply -n debezium-example -f -
+sleep 120
 # Creates the debezium connector
 kubectl apply -f kafka/dbz-connector.yml

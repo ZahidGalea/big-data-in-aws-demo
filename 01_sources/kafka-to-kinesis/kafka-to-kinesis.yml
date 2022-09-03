@@ -30,3 +30,15 @@ spec:
               value: 'debezium-cluster-kafka-bootstrap:9092'
             - name: TOPIC_NAME_TO_LOAD
               value: 'postgres.public.envio'
+            - name: AWS_SECRET_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: aws-access
+                  key: aws-secret-access-key
+                  optional: false
+            - name: AWS_ACCESS_KEY_ID
+              valueFrom:
+                secretKeyRef:
+                  name: aws-access
+                  key: aws-access-key-id
+                  optional: false

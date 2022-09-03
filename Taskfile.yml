@@ -15,24 +15,31 @@ tasks:
   
   infrastructure:init:
     deps: [ tests ]
-    dir: infrastructure/aws-bigdata-demo
+    dir: 00_infrastructure/aws-bigdata-demo
     desc: Init terraform
     cmds:
       - terraform init
 
   infrastructure:plan:
     deps: [ infrastructure:init, tests ]
-    dir: infrastructure/aws-bigdata-demo
+    dir: 00_infrastructure/aws-bigdata-demo
     desc: Show terraform resources creation
     cmds:
       - terraform plan -out={{.TFPLAN}}
 
   infrastructure:apply:
     deps: [ infrastructure:plan, tests ]
-    dir: infrastructure/aws-bigdata-demo
+    dir: 00_infrastructure/aws-bigdata-demo
     desc: Apply resources creation
     cmds:
       - terraform apply "{{.TFPLAN}}"
+  
+  infrastructure:destroy:
+    deps: [ tests ]
+    dir: 00_infrastructure/aws-bigdata-demo
+    desc: Apply resources creation
+    cmds:
+      - "terraform destroy -auto-approve"
   
   application:cdc-app-as-submodule-update:
     desc: Downloads the repository
@@ -50,7 +57,10 @@ tasks:
   application:kafka-to-kinesis:
     deps: [ tests ]
     desc: Creates the application in minikube
+    dir: 01_sources/kafka-to-kinesis
     cmds:
-      - eval $(minikube docker-env); docker build -t=kafka-to-kinesis-app:latest 01_sources/kafka-to-kinesis/
-      - kubectl apply -f 01_sources/kafka-to-kinesis/kafka-to-kinesis.yml
-
+      - eval $(minikube docker-env); docker build -t=kafka-to-kinesis-app:latest .
+      - kubectl delete secret aws-access | echo "not found"
+      - kubectl create secret generic aws-access --from-literal=aws-secret-access-key=$AWS_SECRET_ACCESS_KEY --from-literal=aws-access-key-id=$AWS_ACCESS_KEY_ID
+      - kubectl apply -f kafka-to-kinesis.yml
+  
